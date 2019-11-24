@@ -32,7 +32,8 @@ CREATE TABLE college
 CREATE TABLE domain
 (
   domain_id SERIAL PRIMARY KEY,
-  domain_name VARCHAR
+  domain_name VARCHAR,
+  is_global BOOLEAN NOT NULL DEFAULT FALSE,
 );
 
 CREATE TABLE "user"

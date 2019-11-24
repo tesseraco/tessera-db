@@ -8,21 +8,24 @@ CREATE TABLE country
 CREATE TABLE "state"
 (
   state_id SERIAL PRIMARY KEY,
-  state_name VARCHAR,
+  state_name VARCHAR NOT NULL,
+  state_code VARCHAR NOT NULL,
   country_id INTEGER NOT NULL REFERENCES country(country_id) ON DELETE CASCADE
 );
 
 CREATE TABLE city
 (
   city_id SERIAL PRIMARY KEY,
-  city_name VARCHAR,
+  city_name VARCHAR NOT NULL,
+  city_code VARCHAR NOT NULL,
   state_id INTEGER NOT NULL REFERENCES state(state_id) ON DELETE CASCADE
 );
 
 CREATE TABLE college
 (
   college_id SERIAL PRIMARY KEY,
-  college_name VARCHAR,
+  college_name VARCHAR NOT NULL,
+  college_code VARCHAR NOT NULL,
   city_id INTEGER NOT NULL REFERENCES city(city_id) ON DELETE CASCADE
 );
 

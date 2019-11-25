@@ -33,7 +33,13 @@ CREATE TABLE domain
 (
   domain_id SERIAL PRIMARY KEY,
   domain_name VARCHAR,
-  is_global BOOLEAN NOT NULL DEFAULT FALSE,
+  is_global BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE "role"
+(
+  role_id SERIAL PRIMARY KEY,
+  role_name VARCHAR NOT NULL
 );
 
 CREATE TABLE "user"
@@ -44,9 +50,7 @@ CREATE TABLE "user"
   dob VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
   hashed_password VARCHAR NOT NULL,
-  mobile_number NUMERIC NOT NULL,
-  is_student BOOLEAN NOT NULL,
-  college_id INTEGER NOT NULL REFERENCES college(college_id) ON DELETE CASCADE
+  mobile_number NUMERIC NOT NULL
 );
 
 CREATE TABLE user_interested_domain_mapping
@@ -61,4 +65,11 @@ CREATE TABLE user_experienced_domain_mapping
   user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   domain_id INTEGER NOT NULL REFERENCES domain(domain_id) ON DELETE CASCADE,
   UNIQUE (user_id, domain_id)
+);
+
+CREATE TABLE user_college_mapping
+(
+  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  college_id INTEGER NOT NULL REFERENCES college(college_id) ON DELETE CASCADE,
+  role_id INTEGER NOT NULL REFERENCES "role"(role_id) ON DELETE CASCADE
 );

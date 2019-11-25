@@ -84,5 +84,7 @@ CREATE TABLE user_college_mapping
 CREATE TABLE user_group_maaping
 (
   user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
-  group_id INTEGER NOT NULL REFERENCES "group"(group_id) ON DELETE CASCADE
+  group_id INTEGER NOT NULL REFERENCES "group"(group_id) ON DELETE CASCADE,
+  is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+  UNIQUE (user_id, group_id)
 );

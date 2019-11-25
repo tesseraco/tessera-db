@@ -53,10 +53,11 @@ CREATE TABLE "user"
   user_id SERIAL PRIMARY KEY,
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,
-  dob VARCHAR NOT NULL,
+  dob DATE,
   email VARCHAR NOT NULL,
   hashed_password VARCHAR NOT NULL,
-  mobile_number NUMERIC NOT NULL
+  mobile_number NUMERIC,
+  is_verified BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE user_interested_domain_mapping

@@ -42,6 +42,12 @@ CREATE TABLE "role"
   role_name VARCHAR NOT NULL
 );
 
+CREATE TABLE "group"
+(
+  group_id SERIAL PRIMARY KEY,
+  group_name VARCHAR NOT NULL,
+);
+
 CREATE TABLE "user"
 (
   user_id SERIAL PRIMARY KEY,
@@ -72,4 +78,11 @@ CREATE TABLE user_college_mapping
   user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   college_id INTEGER NOT NULL REFERENCES college(college_id) ON DELETE CASCADE,
   role_id INTEGER NOT NULL REFERENCES "role"(role_id) ON DELETE CASCADE
+  UNIQUE (user_id, college_id)
+);
+
+CREATE TABLE user_group_maaping
+(
+  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  group_id INTEGER NOT NULL REFERENCES "group"(group_id) ON DELETE CASCADE
 );

@@ -1,3 +1,5 @@
+CREATE EXTENSION "uuid-ossp";
+
 CREATE TABLE country
 (
   country_id SERIAL PRIMARY KEY,
@@ -45,12 +47,12 @@ CREATE TABLE "role"
 CREATE TABLE "group"
 (
   group_id SERIAL PRIMARY KEY,
-  group_name VARCHAR NOT NULL,
+  group_name VARCHAR NOT NULL
 );
 
 CREATE TABLE "user"
 (
-  user_id SERIAL PRIMARY KEY,
+  user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,
   dob DATE,
@@ -62,29 +64,29 @@ CREATE TABLE "user"
 
 CREATE TABLE user_interested_domain_mapping
 (
-  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   domain_id INTEGER NOT NULL REFERENCES domain(domain_id) ON DELETE CASCADE,
   UNIQUE (user_id, domain_id)
 );
 
 CREATE TABLE user_experienced_domain_mapping
 (
-  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   domain_id INTEGER NOT NULL REFERENCES domain(domain_id) ON DELETE CASCADE,
   UNIQUE (user_id, domain_id)
 );
 
 CREATE TABLE user_college_mapping
 (
-  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   college_id INTEGER NOT NULL REFERENCES college(college_id) ON DELETE CASCADE,
-  role_id INTEGER NOT NULL REFERENCES "role"(role_id) ON DELETE CASCADE
+  role_id INTEGER NOT NULL REFERENCES "role"(role_id) ON DELETE CASCADE,
   UNIQUE (user_id, college_id)
 );
 
 CREATE TABLE user_group_maaping
 (
-  user_id INTEGER NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
   group_id INTEGER NOT NULL REFERENCES "group"(group_id) ON DELETE CASCADE,
   is_admin BOOLEAN NOT NULL DEFAULT FALSE,
   UNIQUE (user_id, group_id)

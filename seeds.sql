@@ -4,16 +4,16 @@ VALUES
   ('India', 'IND');
 
 INSERT INTO "state"
-  (state_name, state_code, country_id)
+  (state_name, state_code, country_code)
 VALUES
-  ('Tamil Nadu', 'TN', 1);
+  ('Tamil Nadu', 'TN', 'IND');
 
 INSERT INTO  city
-  (city_name, city_code, state_id)
+  (city_name, city_code, state_code)
 VALUES
-  ('Chennai', 'MAS', 1);
+  ('Chennai', 'MAS', 'TN');
 
 INSERT INTO college
-  (college_name, college_code, city_id)
+  (college_name, college_code, city_code)
 VALUES
-  ('Velammal Engineering College', '001', 1);
+  ('Velammal Engineering College', 'IND-TN-MAS-001', 'MAS');

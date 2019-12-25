@@ -2,33 +2,29 @@ CREATE EXTENSION "uuid-ossp";
 
 CREATE TABLE country
 (
-  country_id SERIAL PRIMARY KEY,
   country_name VARCHAR NOT NULL,
-  country_code VARCHAR NOT NULL
+  country_code VARCHAR PRIMARY KEY
 );
 
 CREATE TABLE "state"
 (
-  state_id SERIAL PRIMARY KEY,
   state_name VARCHAR NOT NULL,
-  state_code VARCHAR NOT NULL,
-  country_id INTEGER NOT NULL REFERENCES country(country_id) ON DELETE CASCADE
+  state_code VARCHAR PRIMARY KEY,
+  country_code INTEGER NOT NULL REFERENCES country(country_code) ON DELETE CASCADE
 );
 
 CREATE TABLE city
 (
-  city_id SERIAL PRIMARY KEY,
   city_name VARCHAR NOT NULL,
-  city_code VARCHAR NOT NULL,
-  state_id INTEGER NOT NULL REFERENCES state(state_id) ON DELETE CASCADE
+  city_code VARCHAR PRIMARY KEY,
+  state_code INTEGER NOT NULL REFERENCES state(state_code) ON DELETE CASCADE
 );
 
 CREATE TABLE college
 (
-  college_id SERIAL PRIMARY KEY,
   college_name VARCHAR NOT NULL,
-  college_code VARCHAR NOT NULL,
-  city_id INTEGER NOT NULL REFERENCES city(city_id) ON DELETE CASCADE
+  college_code VARCHAR PRIMARY KEY,
+  city_code INTEGER NOT NULL REFERENCES city(city_code) ON DELETE CASCADE
 );
 
 CREATE TABLE domain
@@ -79,9 +75,9 @@ CREATE TABLE user_experienced_domain_mapping
 CREATE TABLE user_college_mapping
 (
   user_id UUID NOT NULL REFERENCES "user"(user_id) ON DELETE CASCADE,
-  college_id INTEGER NOT NULL REFERENCES college(college_id) ON DELETE CASCADE,
+  college_code INTEGER NOT NULL REFERENCES college(college_code) ON DELETE CASCADE,
   role_id INTEGER NOT NULL REFERENCES "role"(role_id) ON DELETE CASCADE,
-  UNIQUE (user_id, college_id)
+  UNIQUE (user_id, college_code)
 );
 
 CREATE TABLE user_group_maaping
